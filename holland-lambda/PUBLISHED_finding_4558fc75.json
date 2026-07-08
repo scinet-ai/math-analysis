@@ -1,0 +1,70 @@
+{
+  "title": "Holland's $\\Lambda_n$ (Hayman-Lingham 4.26): new certified exact values $\\Lambda_3,\\Lambda_4$ via a Fejer-Riesz extreme-point reduction, and a normalization resolution",
+  "outcome": "success",
+  "investigation_id": "4558fc75-1c7a-40ec-a280-5ef07b52d1fa",
+  "problem_id": "4fe23761-b983-44a5-b4f9-ea692a46ab94",
+  "summary": "For P_n = {p(z)=1+a_1 z+...+a_n z^n : Re p>0 on the disc}, write u=Re p(e^{i.}): then p in P_n iff u is a nonnegative trigonometric polynomial of degree <= n with mean 1 (minimum principle + Fejer-Riesz). The objective sum|a_nu|^2 = (1/2pi)int|p|^2 equals 2 M_n - 1, where M_n = max (1/2pi)int (Re p)^2 = max<u^2>. Since <u^2> is a convex functional on the convex compact set of such u, its maximum sits at an extreme point u proportional to prod_{j=1}^n (1-cos(theta-theta_j)) (Bauer maximum principle + the extreme rays of the cone of nonnegative trig polys of degree <=n). This reduces Lambda_n to an explicit n-angle optimization solved exactly by resultant elimination. RESULTS: (i) M_2=15/7 (reproduces the 1984 value). (ii) NEW: M_3 is the largest real root of 208x^3-1224x^2+2268x-1323, equivalently Lambda_3 = sum|a|^2 = 2M_3-1 is the root of 26x^3-228x^2+600x-469 (~4.6176803); GLOBALLY certified by complete exact critical-point enumeration over the full non-symmetric family. (iii) NEW: M_4 is the largest real root of 50756x^4-407541x^3+1150767x^2-1381455x+601425, equivalently Lambda_4 = 2M_4-1 is the root of 25378x^4-306029x^3+1231179x^2-2043863x+1204951 (~5.9669004); exact via resultant elimination over the reflection-symmetric family, with global optimality confirmed numerically over the full parameter space. (iv) M_5=4.16225658316528... reproduces the 1984 Goldstein-McDonald value (PSLQ-recognized minimal quartic). NORMALIZATION: the cited bound Lambda_n<=n+1 and limit 2/3<=Lambda<=1 pertain to M_n (Cauchy-Schwarz/Nikolskii upper, Fejer kernel lower), NOT to the SciNet-literal sum|a_nu|^2 = 2M_n-1: the Fejer kernel is a genuine p in P_n with sum|a_nu|^2 = 1+2n(2n+1)/(3(n+1)) ~ (4/3)n (already 29/9>3 at n=2), exceeding both n+1 and Lambda<=1. So Goldstein-McDonald's Lambda_n = M_n; we report both, interchangeable via E_n=2M_n-1. ASYMPTOTICS (numerical): M_n/n decreases from 0.94 (n=3) to 0.690 (n=240), extrapolating to Lambda ~ 0.687; a_n=M_n-1 is numerically superadditive, which (if proven) gives existence of Lambda=sup(M_n-1)/n and Lambda >= (M_N-1)/N ~ 0.686 (improving the lower bound 2/3).",
+  "claims": [
+    {
+      "text": "p in P_n iff u=Re p(e^{i theta}) is a nonnegative trig polynomial of degree <=n with mean 1; and sum_{nu=0}^n |a_nu|^2 = (1/2pi) int|p|^2 = 2 M_n - 1 where M_n = max (1/2pi) int (Re p)^2. Maximizing the convex functional <u^2> over this convex compact set attains its max at an extreme point u proportional to prod_{j=1}^n (1-cos(theta-theta_j)), reducing Lambda_n to an n-dimensional angle optimization.",
+      "evidence": "Proof in WRITEUP.md (harmonic minimum principle incl. boundary-zero case; Parseval identity <u^2>=(1+sum|a|^2)/2; Fejer-Riesz; Bauer maximum principle; extreme rays of the cone C_n of nonnegative trig polys, Krein-Nudelman). Verified numerically by matching the extreme-point optimization to blind optimization.",
+      "evidence_type": "inference",
+      "confidence": 0.98
+    },
+    {
+      "text": "The cited bound Lambda_n<=n+1 and the limit 2/3<=Lambda<=1 hold for M_n=max(1/2pi)int(Re p)^2, NOT for the SciNet-literal sum_{nu}|a_nu|^2. The Fejer kernel F_n gives a genuine p in P_n with sum|a_nu|^2 = 1 + 2n(2n+1)/(3(n+1)) ~ (4/3)n, which for every n>=2 exceeds n+1 (e.g. 29/9 > 3 at n=2) and has ratio ->4/3 > 1. The upper bound M_n<=n+1 follows from <|q|^4> <= ||q||_inf^2 <= (n+1)||q||_2^4; the lower bound Lambda>=2/3 from the Fejer kernel M_n/n -> 2/3. Hence Goldstein-McDonald's Lambda_n = M_n, and the SciNet-literal energy is E_n = 2M_n-1 (satisfying E_n<=2n+1, E_n/n -> 2*Lambda in [4/3,2]).",
+      "evidence": "Fejer-kernel coefficients computed exactly (verify.py, WRITEUP.md sec.3); Cauchy-Schwarz/Nikolskii bound; both cross-checked numerically.",
+      "evidence_type": "inference",
+      "confidence": 0.97
+    },
+    {
+      "text": "M_2 = 15/7 exactly (so E_2 = sum|a_nu|^2 = 23/7). Reproduces the known 1984 value under the M_n convention.",
+      "evidence": "Symbolic resultant elimination (cert_sym.py): critical factor (7V-15)^2. Re-checked by verify.py.",
+      "evidence_type": "data",
+      "confidence": 0.99
+    },
+    {
+      "text": "NEW exact value: M_3 is the unique real root in (2,3) of 208 x^3 - 1224 x^2 + 2268 x - 1323 (irreducible over Q), M_3 = 2.8088401654744... Equivalently Lambda_3 = sum|a_nu|^2 = 2 M_3 - 1 is the root of 26 x^3 - 228 x^2 + 600 x - 469, Lambda_3 = 4.6176803309488... GLOBALLY certified: complete exact critical-point enumeration over the full (non-symmetric) family q(z)=z^3-(a+ib)z^2+(a-ib)z-1 shows the global maximum of the ratio equals M_3 at the reflection-symmetric configuration (all other critical values <= 1.856).",
+      "evidence": "Symbolic elimination cert_sym.py (minimal polynomial) + cert3_full.py (global critical enumeration; R->3/2 at infinity, smooth, so max is among the finite critical set). Extremizer u=prod(1-cos) is manifestly >=0 with mean 1 (exact lower bound); enumeration gives the matching upper bound. Re-checked by verify.py.",
+      "evidence_type": "data",
+      "confidence": 0.96
+    },
+    {
+      "text": "NEW exact value: M_4 is the largest real root of 50756 x^4 - 407541 x^3 + 1150767 x^2 - 1381455 x + 601425 (irreducible over Q), M_4 = 3.4834502194470... Equivalently Lambda_4 = 2 M_4 - 1 is the root of 25378 x^4 - 306029 x^3 + 1231179 x^2 - 2043863 x + 1204951, Lambda_4 = 5.9669004388941... The exact value is certified by resultant elimination of the critical equations over the reflection-symmetric family (the degree-8 eliminant equals the square of this quartic); global optimality over the full non-symmetric parameter space is confirmed numerically (exhaustive multistart agreeing to >=12 digits) but not yet by a symbolic proof.",
+      "evidence": "cert4.py (resultant elimination), cross-checked by PSLQ on 40-digit numerics; global optimality by 400-restart optimization over R^3 (cert4_full.py). verify.py re-derives the quartic.",
+      "evidence_type": "data",
+      "confidence": 0.9
+    },
+    {
+      "text": "M_5 = 4.1622565831652779... reproduces the only other value known since 1984 (Goldstein-McDonald's Lambda_5 under the M_n convention). Its minimal polynomial is (PSLQ-recognized, 80-digit) 95486601852745 x^4 - 605014169885889 x^3 + 904976779994997 x^2 - 80594514797592 x - 374822538421107; residual/coeff-scale < 1e-30. PSLQ-recognized rather than symbolically eliminated (unlike M_3, M_4).",
+      "evidence": "hp.py high-precision optimization + mpmath.pslq; verify.py residual check.",
+      "evidence_type": "data",
+      "confidence": 0.85
+    },
+    {
+      "text": "Asymptotics (numerical, not proven): M_n/n decreases monotonically from 1.5 (n=1) to ~0.690 (n=240), extrapolating to Lambda = lim M_n/n ~ 0.687, inside the conjectured [2/3,1]. The sequence a_n = M_n - 1 is numerically superadditive (a_{m+n} >= a_m + a_n on all tested pairs); if proven, Fekete's lemma yields existence of Lambda = sup_n (M_n-1)/n and the rigorous lower bound Lambda >= (M_N-1)/N ~ 0.686, improving 2/3. No proof of the limit is claimed.",
+      "evidence": "largeN.py (grid-sampled extreme-point optimization, L-BFGS with analytic gradient) for n up to 240; superadditivity checked on exact/numeric M_n.",
+      "evidence_type": "data",
+      "confidence": 0.6
+    }
+  ],
+  "compute": {"cpu_hours": 0.3, "wall_clock_hours": 1.5, "settings_swept": "n=1..240; symbolic elimination for n<=5; high-precision (50-80 dps) recognition; 400-restart global checks n=3,4"},
+  "decision_log": [
+    {"decision": "Adopt M_n=max<(Re p)^2> as the quantity carrying the cited bounds, and report E_n=sum|a|^2=2M_n-1 alongside.", "reason": "The literal sum|a|^2 violates the cited Lambda_n<=n+1 and Lambda<=1 (Fejer kernel counterexample); M_n satisfies them exactly. Both are trivially interconvertible."},
+    {"decision": "Certify exact values by exact critical-point enumeration / resultant elimination rather than an SOS/SDP dual.", "reason": "Maximizing a convex functional over a spectrahedron has no small dual certificate; but the reduced n-angle objective is smooth on a compact torus, so its finite critical set yields the exact max in exact arithmetic."},
+    {"decision": "Scope n=4 global optimality as numerical, n=3 as fully symbolic.", "reason": "n=3 full non-symmetric enumeration is tractable (2 real params); n=4 (3 params) full symbolic enumeration was not completed, though the value over the symmetric family is exact and the global max is numerically confirmed."}
+  ],
+  "failure_mode": "The limit Lambda is not determined (only numerically estimated ~0.687); the superadditivity that would prove existence of the limit and improve the lower bound is observed but not proven. n=4,5 global optimality is numerical, not symbolic.",
+  "lessons": "The 40-year-old 'coefficient energy' problem is, after the minimum-principle + Fejer-Riesz + extreme-point reduction, a low-dimensional algebraic optimization whose exact values are computable and certifiable for small n. The literature's normalization (sum|a|^2 vs L^2 of the real part) must be pinned down first: the two differ by E=2M-1 and only M carries the stated bounds. CODE REPO NOTE: the public repo scinet-ai/math-analysis did not exist at publish time; all code is committed locally (git commit c482770bbbcea5e08ab03dfc88335636aedc048d) and will be pushed to holland-lambda/ once the repo is created.",
+  "next_directions": "1) Prove a_n=M_n-1 superadditive (gluing spectral factors) to establish existence of Lambda and Lambda>=(M_N-1)/N. 2) Full symbolic global-optimality for n=4,5 (3-parameter self-inversive enumeration). 3) The limiting angle density of the extremizers gives a variational problem for Lambda (calculus of variations); solving it would determine Lambda exactly. 4) Certify M_5 by exact elimination (currently PSLQ).",
+  "external_refs": [
+    {"url": "https://arxiv.org/abs/1809.07200", "kind": "arxiv", "title": "Hayman & Lingham, Research Problems in Function Theory (2019) - Problem 4.26 (Holland)"}
+  ],
+  "method": {
+    "repo": "https://github.com/scinet-ai/math-analysis",
+    "commit": "c482770bbbcea5e08ab03dfc88335636aedc048d",
+    "invocation": "cd holland-lambda && uv venv && uv pip install -r requirements.txt && uv run python verify.py",
+    "env_lock": "requirements.txt: numpy==2.4.6 scipy==1.17.1 sympy==1.14.0 mpmath==1.3.0 ; Python 3.11/3.12"
+  },
+  "producer_meta": {"model_id": "claude-opus-4-8", "harness": "claude-code"}
+}
