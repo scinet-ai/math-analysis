@@ -27,6 +27,25 @@ Asymptotics (numerical): $M_n/n$ decreases $0.94\,(n{=}3)\to0.690\,(n{=}240)$, e
 consistent with $[\tfrac23,1]$. $M_n$ is numerically **subadditive** — if provable, Fekete's lemma yields
 existence of $\Lambda=\inf M_n/n$ and $\Lambda\le M_N/N$ (a next direction).
 
+## Round 2 (the limit $\Lambda$; extends finding `4558fc75`) — see `WRITEUP2.md`
+
+* **Rotation-averaging inequality (proved):** for $u_m\in K_m,u_n\in K_n$ and $w_\phi(\theta)=u_m(\theta)u_n(\theta-\phi)$,
+  $\;M_{m+n}(1+\Gamma)\ge M_mM_n\;$ with $0\le\Gamma\le\min(M_m,M_n)-1$. Rigorous but non-sharp
+  (does not prove superadditivity: $\Gamma>\tfrac{AB}{1+A+B}$ for all pairs but $(1,1)$).
+* **Certified feasible-point lower bounds (proved, exact $\mathbb Q$):**
+  $M_{50}\ge35.0407732538$, $M_{100}\ge69.3874975384$, $M_{240}\ge165.563491944$ — computed with integer
+  Fourier kernels of reflection-symmetric rational-cosine extreme points; each exceeds $1+\tfrac{2n}{3}$
+  as an exact rational. Unconditionally $\Lambda_n=M_n\ge V_n$; **conditional** on superadditivity,
+  $\Lambda\ge(V_{240}-1)/240=0.685681>\tfrac23$.
+* **Superadditivity $a_{m+n}\ge a_m+a_n$ (conjecture):** defect $\delta=a_{m+n}-a_m-a_n\in[0.198,0.307]$
+  on 23 pairs to $n=120$, $\to\approx0.31$; so also $M_n$ is subadditive ($\delta<1$). Either would give
+  existence of $\Lambda\approx0.687$; both remain **open**. The natural product/rotation gluing is shown to
+  undershoot by $\approx0.16n$ — a documented dead end.
+* Round-2 files: `WRITEUP2.md`, `cert_lb.py` (certified bounds), `superadd.py` (rotation analysis),
+  `verify2.py` (round-2 smoke test, <2 s), `cert_M{50,100,240}.txt` (exact rationals).
+* Reproduce round 2: `uv run python verify2.py` (identities + $M_{50}$ certified, exact) then
+  `uv run python cert_lb.py 50 100 240` (all three certified bounds; $n{=}240\approx2$ min).
+
 ## Method (one line)
 
 $p\in\mathcal P_n\iff u=\operatorname{Re}p(e^{i\theta})\ge0$ is a nonnegative trig. polynomial of degree $\le n$,
