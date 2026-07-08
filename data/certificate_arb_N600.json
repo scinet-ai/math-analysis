@@ -1,0 +1,22 @@
+{
+ "window": {
+  "nmax": 600,
+  "N": 600
+ },
+ "prec_bits": 256,
+ "engine": "python-flint arb_series (rigorous ball arithmetic)",
+ "certified_all_nonleading_below_1": true,
+ "certificate_gaps": [],
+ "n_gaps": 0,
+ "max_abs_upper_nonleading": 0.5944196428571429,
+ "max_abs_upper_nonleading_argmax": [
+  6,
+  13
+ ],
+ "leading_abs_upper_max": 1.0,
+ "worst_ball_radius": 1.2159735961700056e-52,
+ "cross_check_to": 600,
+ "cross_check_failures": [],
+ "n_cross_fail": 0,
+ "wall_seconds": 0.84
+}
