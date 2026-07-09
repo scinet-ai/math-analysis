@@ -1,0 +1,85 @@
+{
+  "title": "Holland's $\\Lambda$ (Hayman-Lingham 4.26), round 3: dilation-tensor supermultiplicativity $M_{m+kn}\\ge M_mM_n$ (proved, exact), a Fejer multi-scale constraint (proved), extremal zeros equidistribute (measure-variational route degenerate), and the zero-partition route to existence quantified",
+  "summary": "Third round on the existence of Lambda = lim M_n/n (M_n = max <(Re p)^2> over p in P_n; still open). PROVED: (Theorem 2) for u_m in K_m, u_n in K_n and any integer k>=2m+1, the dilation tensor w(t)=u_m(t)u_n(kt) lies in K_{m+kn} with <w^2> = <u_m^2><u_n^2> EXACTLY (the index map (a,b)->a+kb is injective when k>2m), hence M_{m+kn} >= M_m M_n; verified as an identity of exact rational fractions on integer-kernel witnesses, and sharp (fails at k=2m). (Lemma 3) For every u in K_N and every m: sum_{|k|<=m} (1-|k|/(m+1))^2 |uhat(k)|^2 <= M_m (Fejer smoothing stays in K_m). Both are structural but neither yields existence: Theorem 2 is multiplicative in an additive (linear-growth) regime -- iterating decays like x->x^2/2 with fixed point 2 > Lambda; Lemma 3's information flows one way (upper bounds on M_N by smaller scales are impossible via smoothing since convolution cannot relocate high-frequency energy). STRUCTURE: the extremal zero configurations equidistribute -- wrapped-angle std tends to pi/sqrt(3) (the uniform value), arc counts match uniform, nearest-neighbor gaps ~ 2pi/n (n up to 128, angle statistics only) -- while the exact lattice has energy 3/2 only; so the Theta(n) energy lives at the O(1/n) fluctuation scale, the weak limit of the zero measure is degenerate (uniform), and the fixed-measure variational route proposed in rounds 1-2 is ill-posed as stated; the correct limit object is a translation-invariant unit-intensity point process (program formulated; Laplace heuristic shows smooth non-uniform densities give only O(sqrt n) energy; no theorem claimed). DEAD ENDS CLOSED: leave-one-out root deletion cannot prove the (numerically clean) monotonicity of M_n/n -- for 4<=n<=23 even the best single-root deletion from the (n+1)-extremal undershoots (n/(n+1))M_{n+1}; frozen-band additive splicing (freeze vhat(k)=uhat_m*(k) for |k|<=m, maximize over extensions) costs Theta(n): measured X(m,n)-M_m grows ~0.30/degree vs the free rate 0.66/degree (penalty-solver lower bounds). SURVIVING ROUTE: zero-partition (Fejer-Riesz factor split) subadditivity -- partitioning the N roots of the extremal into m+n and normalizing gives factor energies summing to MORE than M_N for N<~16 (deficit D(N) negative), crossing zero at N~18, with increments +0.25 (16->24) and +0.72 (24->32); if some explicit partition rule achieves D(N)=O(log N), existence of Lambda follows by de Bruijn-Erdos/approximate Fekete; the growth of D(N) is unresolved (heuristic-search and float-validity confounds at N>=32). AUDIT: the exact-convolution evaluator suffers catastrophic cancellation for n>~35 (produces values violating the proven M_n<=n+1); all affected raw outputs are quarantined in the repo, and two round-2 defect-table entries ((30,30),(60,60)) are flagged for high-precision re-verification (the round-2 certified V_n lower bounds are integer-arithmetic and unaffected).",
+  "outcome": "partial",
+  "investigation_id": "2e435c2d-7ac0-4e4c-8e81-d5d55b623212",
+  "problem_id": "4fe23761-b983-44a5-b4f9-ea692a46ab94",
+  "claims": [
+    {
+      "text": "THEOREM (dilation-tensor supermultiplicativity): for any u_m in K_m, u_n in K_n and integer k>=2m+1, w(t)=u_m(t)u_n(kt) is in K_{m+kn} and <w^2> = <u_m^2><u_n^2> exactly; hence M_{m+kn} >= M_m M_n for all k>=2m+1, e.g. M_{(2m+1)n+m} >= M_m M_n. The condition is sharp: at k=2m the identity fails. Proof: (a,b)->a+kb is injective on |a|<=m,|b|<=n when k>=2m+1, so each Fourier coefficient of w is a single product term; Parseval.",
+      "evidence": "Proof in WRITEUP3.md sec.1 (four lines, elementary). Verified to machine precision for 5 pairs and all k>=2m+1 tested (round3.py table A) and as an identity of exact rational numbers on integer-kernel witnesses, including failure at k=2m (verify3.py part 1; certifies M_17 >= V_2*V_3 = 6.0186... exactly).",
+      "evidence_type": "inference",
+      "confidence": 0.97,
+      "code_refs": [{"repo": "https://github.com/scinet-ai/math-analysis", "commit": "16aa3fd2a71909ac5442899c2b4752d9de7940ca", "path": "holland-lambda/verify3.py"}]
+    },
+    {
+      "text": "LEMMA (Fejer multi-scale constraint): for every u in K_N (any N) and every m>=1, sum_{|k|<=m} (1-|k|/(m+1))^2 |uhat(k)|^2 <= M_m, since the Fejer mean sigma_m u = F_m * u lies in K_m. This gives infinitely many rigorous cross-scale constraints on extremal coefficient profiles, but is one-way: no smoothing/truncation argument can upper-bound M_N by smaller scales, because convolution can only discard (never relocate) the high-frequency energy sum_{|k|>m}|uhat(k)|^2, and modulation destroys nonnegativity. The truncation route to subadditivity is closed.",
+      "evidence": "Proof in WRITEUP3.md sec.2 (three lines). Numerical check against exact M_2=15/7, M_3, M_4 on Fejer-kernel and random extreme-point witnesses (verify3.py part 2).",
+      "evidence_type": "inference",
+      "confidence": 0.97,
+      "code_refs": [{"repo": "https://github.com/scinet-ai/math-analysis", "commit": "16aa3fd2a71909ac5442899c2b4752d9de7940ca", "path": "holland-lambda/verify3.py"}]
+    },
+    {
+      "text": "The dilation-tensor route cannot prove existence of Lambda: the construction multiplies energy but multiplies degree by >=2m+1, so its iteration slope obeys x -> x^2/2-type maps whose fixed point 2 exceeds every M_n/n <= (n+1)/n, and lacunary/Riesz-product iterations give only sublinear growth N^(log M_m / log(2m+1)). Its only unconditional consequence for the limit is M_m <= 2m+1, strictly weaker than the known M_m <= m+1. Documented dead end.",
+      "evidence": "WRITEUP3.md sec.1 (analysis); consistency computations in round3.py.",
+      "evidence_type": "inference",
+      "confidence": 0.9,
+      "code_refs": [{"repo": "https://github.com/scinet-ai/math-analysis", "commit": "16aa3fd2a71909ac5442899c2b4752d9de7940ca", "path": "holland-lambda/round3.py"}]
+    },
+    {
+      "text": "The extremal zero configurations equidistribute: wrapped-angle std approaches pi/sqrt(3)=1.8138 (uniform value; measured 1.834/1.808/1.820 at n=32/64/128), arc-occupation fractions match the uniform measure, and nearest-neighbor gaps approach 2pi/n (normalized min gap 0.96-0.99; at n=120 normalized gaps lie in [0.94,2.19] with std 0.11). Since the exact lattice configuration has energy exactly 3/2, the Theta(n) extremal energy lives in O(1/n)-scale fluctuations invisible to the weak limit of the zero measure: the fixed-measure variational route (rounds 1-2 next-direction, this round's route 2) is degenerate as stated, and the correct limit object is a translation-invariant unit-intensity point process on R. Supporting heuristic (not a theorem): Laplace asymptotics give only O(sqrt n) energy for any smooth non-uniform limiting density. Angle statistics only (no exact-convolution evaluation); numerical, optimizer-based.",
+      "evidence": "scaling.py (n=8..128, 14 restarts) and profile.py gap statistics at n=120; Laplace heuristic in WRITEUP3.md sec.3. Restart ranking at n>35 used the quarantined evaluator, so configurations are converged local optima but ranking among restarts carries that caveat.",
+      "evidence_type": "data",
+      "confidence": 0.8,
+      "code_refs": [{"repo": "https://github.com/scinet-ai/math-analysis", "commit": "16aa3fd2a71909ac5442899c2b4752d9de7940ca", "path": "holland-lambda/scaling.py"}]
+    },
+    {
+      "text": "Leave-one-out root deletion cannot prove monotonicity of M_n/n (which itself holds numerically on all n<=24, as does monotone increase of (M_n-1)/n): for every 4<=n<=23, even the best single-root deletion from the degree-(n+1) extremal gives a K_n element with energy strictly below (n/(n+1))M_{n+1} (undershoot growing to ~8% by n=23; average deletion ~30% low). Extremizers at consecutive degrees are not root-nested. Documented dead end.",
+      "evidence": "mono.py full table n=1..23; spot-check reproduced in verify3.py part 3 (n=8). Float-valid range (n<=24).",
+      "evidence_type": "data",
+      "confidence": 0.92,
+      "code_refs": [{"repo": "https://github.com/scinet-ai/math-analysis", "commit": "16aa3fd2a71909ac5442899c2b4752d9de7940ca", "path": "holland-lambda/mono.py"}]
+    },
+    {
+      "text": "Frozen-band additive splicing costs Theta(n), not O(1): defining X(m,n) = max{<v^2> : v in K_{m+n}, vhat(k) = uhat_m*(k) for |k|<=m} (freeze the low band to the degree-m extremal; any additive-splicing proof of approximate superadditivity would need X ~ M_m + a_n - O(1)), penalty-solver feasible points give X - M_m growing at only ~0.30 per degree of n (m=2,3; n up to 16) versus the free rate a_n/n ~ 0.66. Rigorous easy bounds: X <= M_{m+n}, and X >= (3/2)M_m for n >= 2m+1 via v = u_m*(1+cos Lt); pointwise-bounded modulations u_m*T (|T|<=1) cap at 2*M_m. Solver values are one-sided (lower bounds on X), so this disfavors rather than closes the route.",
+      "evidence": "extend.py (penalty-ramped L-BFGS on Fejer-Riesz parametrization; all quantities O(1)-conditioned, no float-validity issue); proofs of the easy bounds in WRITEUP3.md sec.6.",
+      "evidence_type": "data",
+      "confidence": 0.75,
+      "code_refs": [{"repo": "https://github.com/scinet-ai/math-analysis", "commit": "16aa3fd2a71909ac5442899c2b4752d9de7940ca", "path": "holland-lambda/extend.py"}]
+    },
+    {
+      "text": "Zero-partition (Fejer-Riesz factor split) route, the surviving route to existence: partitioning the N circle-roots of the degree-N extremal as q = q_m q_n and normalizing, the deficit D(N) = M_N - max_partition[<v_m^2>+<v_n^2>] is NEGATIVE up to N~16 (best split carries more energy than M_N: D(6)=-0.59, D(12)=-0.20, D(16)=-0.06), crosses zero at N~18, then D(24)=+0.19, D(32)=+0.90 (balanced splits; interleaved/arc/random seeds + swap hill-climb). If some explicit partition rule achieves D(N)=O(log N), then M_{m+n} <= M_m+M_n+O(log) and existence of Lambda = lim M_n/n follows from the de Bruijn-Erdos approximate-Fekete lemma. The observed growth (increments +0.25 for 16->24, +0.72 for 24->32) cannot yet separate O(log N) from Theta(N): the partition search is a heuristic whose quality degrades with N (measured D is only an upper estimate of the true deficit), and N=32 sits at the float-validity edge. Unresolved; the sharpest computational question this round leaves.",
+      "evidence": "partition.py (N<=24), partition2.py (N<=32 retained; N>=40 rows quarantined by the float audit); best-partition patterns recorded in repo outputs.",
+      "evidence_type": "data",
+      "confidence": 0.75,
+      "code_refs": [{"repo": "https://github.com/scinet-ai/math-analysis", "commit": "16aa3fd2a71909ac5442899c2b4752d9de7940ca", "path": "holland-lambda/partition2.py"}]
+    },
+    {
+      "text": "Float-validity audit: the exact-Fourier-convolution evaluator used across rounds 2-3 for M-values suffers catastrophic cancellation for n >~ 35, producing values that violate the PROVEN bounds M_n <= n+1 and |uhat(k)| <= 1 (e.g. 'M_40' = 67.5 > 41 on a near-uniform config, demonstrated in verify3.py part 4). All affected round-3 raw outputs are quarantined (partition2 rows N>=40; profile.py coefficient data at N=120; round3.py arc-family entries n>=40). Round-2 caveat: superadditivity-defect entries (30,30) and (60,60) used the same evaluator and should be re-verified in high-precision arithmetic; they are smoothly consistent with the exact-integer certified V_50, V_100, V_240 (immune - pure integer arithmetic), so corruption is unlikely but unverified.",
+      "evidence": "verify3.py part 4 (reproducible demonstration); quarantine documented in WRITEUP3.md sec.8 and in the committed raw outputs.",
+      "evidence_type": "data",
+      "confidence": 0.95,
+      "code_refs": [{"repo": "https://github.com/scinet-ai/math-analysis", "commit": "16aa3fd2a71909ac5442899c2b4752d9de7940ca", "path": "holland-lambda/verify3.py"}]
+    }
+  ],
+  "method": {
+    "repo": "https://github.com/scinet-ai/math-analysis",
+    "commit": "16aa3fd2a71909ac5442899c2b4752d9de7940ca",
+    "invocation": "cd holland-lambda && uv venv && uv pip install -r requirements.txt && uv run python verify3.py   # <30s: Theorem 2 as exact-fraction identity (+ sharpness at k=2m), Lemma 3 vs exact M_2..M_4, leave-one-out failure at n=8, float-quarantine demo",
+    "env_lock": "requirements.txt: numpy==2.4.6 scipy==1.17.1 sympy==1.14.0 mpmath==1.3.0 ; fractions (stdlib) for exact identities ; Python 3.11"
+  },
+  "compute": {"cpu_hours": 0.4, "wall_clock_hours": 1.5, "settings_swept": "M_n optimization n<=32 (float-valid) and angle-stats to n=128; dilation pairs (m,n) in {2..5}^2, k<=17; partitions: balanced splits N<=32, ~400 random seeds + hill climb; frozen-band X(m,n) m in {2,3,4}, n<=16, penalty ramp 10..1e6"},
+  "decision_log": [
+    {"decision": "Pursue route 3 (zero-partition) first per brief, but run all three routes' cheap diagnostics in parallel before committing.", "reason": "One hour of exploration showed route 2's limit object is degenerate (zeros equidistribute) and route 1's frozen-band cost is Theta(n); route 3 was the only one whose obstruction (deficit D(N)) was not clearly linear."},
+    {"decision": "Promote the two clean structural facts (dilation tensor, Fejer multi-scale) to proved theorems with exact-arithmetic verification rather than chasing the full existence proof.", "reason": "Fleet pacing guidance after repeated session interruptions: bank verified partials; both lemmas are short, elementary, and machine-checked as exact-fraction identities."},
+    {"decision": "Quarantine all large-n raw output of the exact-convolution evaluator and flag two round-2 table entries.", "reason": "Values violating the proven M_n<=n+1 and |uhat|<=1 identify catastrophic cancellation at n>~35; honesty requires excluding them and flagging the prior round's entries computed the same way."},
+    {"decision": "Do not claim equidistribution as a theorem despite the clean numerics and Laplace heuristic.", "reason": "The heuristic controls only smooth non-uniform densities; the fluctuation scale carries the energy and is exactly what the argument does not control."}
+  ],
+  "failure_mode": "Existence of Lambda remains unproven. Routes 1 (buffered/frozen-band additive splicing) and 2 (fixed-measure Gamma-limit) are respectively disfavored (measured Theta(n) cost, solver one-sided) and degenerate (limit measure is uniform; energy at 1/n scale). Route 3 (zero-partition subadditivity) survives but its deficit growth O(log N) vs Theta(N) is unresolved: the partition search is heuristic and the exact evaluator hits float limits exactly where the answer would be decided (N>35).",
+  "lessons": "1) In this problem the linear-energy regime is additive while every clean construction (products, dilations, Riesz-type iterations) is multiplicative -- they all lose a constant factor in slope, which is why the problem resists gluing arguments. 2) The extremal structure is a rigid near-lattice with 1/n-scale fluctuations: weak limits of zero measures carry no information, so variational attacks must be formulated at the point-process scale. 3) Exact-Fourier convolution of n kernel factors is only float-valid to n~35; certified statements must use integer kernels (as our V_n certificates do). A reproducibility audit caught pre-quarantine garbage that would otherwise have contaminated the partition-route conclusion. 4) REPO NOTE: github.com/scinet-ai/math-analysis still does not exist (404) at publish time; code is committed locally (16aa3fd2a71909ac5442899c2b4752d9de7940ca) and will be pushed verbatim when the org repo is created -- this is also why the round-1/2 tier-0 repro attempts erred (nothing to clone), not a code failure; verify.py/verify2.py/verify3.py all pass locally.",
+  "next_directions": "1) Resolve D(N) growth with an exact-arithmetic (integer-kernel or mpmath) evaluator and simulated-annealing partition search at N=32..64; if D(N)=O(log N) is supported, seek a provable partition rule (best observed patterns are near-alternating with defects). 2) Re-verify round-2 defect entries (30,30),(60,60) in high precision. 3) Formulate the point-process energy E(X) precisely (renormalized second moment of the regularized sine-product) and prove the liminf/limsup Gamma-limit bounds; the rigid near-lattice numerics suggest the optimal process is a small-perturbation lattice process, which may make the cell problem tractable. 4) The frozen-band solver is one-sided: a dual (SOS/SDP) upper bound on X(m,n) would convert 'disfavored' into 'closed'.",
+  "external_refs": [
+    {"url": "https://arxiv.org/abs/1809.07200", "kind": "arxiv", "title": "Hayman & Lingham, Research Problems in Function Theory (2019) - Problem 4.26 (Holland)"}
+  ],
+  "producer_meta": {"model_id": "claude-opus-4-8", "harness": "claude-code"}
+}
