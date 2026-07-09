@@ -1,0 +1,21 @@
+### [R2 1/4] profile A_j exact to J=300 (|A_j|<=1; max non-leading 1/2 at j=1)
+stabilization re-verified (c^(n)_(n+j) const for n>=max(j,1), n<=J): True  worst=None
+|A_j|<=1 for ALL j=0..300: True   violations: []
+max non-leading |A_j| = 1/2 ~ 0.50000000 at j=1
+### [R2 2/4] Koenigs product formula reproduces Phi exactly (J=120)
+  mismatches: 0  []
+  MATCH: product formula reproduces Phi exactly
+### [R2 3/4] band-2 + band-3 identities, exact, window n<=40 (0 failures expected)
+ "tau_closed_form_ok": true,
+ "band2_checked": 900,
+ "band2_failures": [],
+ "band3_checked": 940,
+ "band3_failures": [],
+ "max_abs_band2_value": "2663/4480",
+### [R2 4/4] certified Phi(-1/2) < -1 (arb balls + proved tail bound)
+first k with certified |f_k| <= 1/8: k0 = 4
+certified Phi(-1/2) in [[-1.159044050955079801992177389029586722929772019622974230786819568017589094964 +/- 4.47e-76], [-1.159044050955079801992177389029586722929772019622974219186702072967201734755 +/- 7.14e-77]]
+VERDICT Phi(-1/2) < -1 : True
+
+PASS if: 0 mismatches, 0 band failures (band2_checked=1300, band3_checked=1341 at n<=40... counts scale with window), VERDICT True.
+Optional (Lean round 2): cd lean && lean Rippon2.lean   # 3 native_decide certificates

@@ -8,7 +8,43 @@ Book update: *"No progress on this problem has been reported to us."*
 $f_n(t):=\varphi_t^n(-1)=\sum_k c^{(n)}_k t^k$ (formal power series in $t$, valuation $n$,
 via $f_{n+1}=e^{t f_n}-1$). **Is $|c^{(n)}_k|\le 1$ for all $n\ge1,\,k\ge0$?**
 
-## Results (see `proofs/proofs.md` for the mathematics)
+## ROUND 2 results (see `proofs/proofs2.md`; extends finding cda0ff02)
+
+Round 2 replaces the round-1 reduction with a complete **band decomposition** of the
+coefficient array via a *formal Koenigs linearization at multiplier $t$*:
+
+- **Theorem 1 (exact factorization).** $f_n=-t^n\prod_{k<n}h(tf_k)$ with $h(x)=(e^x-1)/x$;
+  hence $\Phi=-\prod_{k\ge0}h(tf_k)$ ($t$-adic) — new proof of stabilization. *Proved*;
+  product verified exactly to 120 profile terms (`rippon/product_form.py`).
+- **Theorem 2 (formal Koenigs).** Unique $P(w)=w+\sum_{m\ge2}p_m(t)w^m$, $p_m\in\mathbb Q[[t]]$,
+  with $P(tw)=e^{tP(w)}-1$; $\operatorname{val}p_m\ge m-1$; $p_2=\frac{t}{2(t-1)}$,
+  $p_3=\frac{t^2(t+2)}{6(t-1)^2(t+1)}$ (poles only at roots of unity). *Proved.*
+- **Theorem 3 (band decomposition).** $f_n=\sum_m p_m t^{mn}\Phi^m$, so every coefficient
+  is a **finite** sum $c^{(n)}_k=\sum_{m\le(k+1)/(n+1)}[t^{k-mn}]\Psi_m$ of coefficients of
+  the universal band profiles $\Psi_m=p_m\Phi^m$. **Rippon's conjecture is equivalent to a
+  family of inequalities about these fixed universal series** — the iterate index $n$ only
+  selects which coefficients are summed. *Proved.*
+- **Theorem 4 (transient lines).** $c^{(n)}_{2n+i}=A_{n+i}+\tau_i$ ($i\le n+1$) and
+  $c^{(n)}_{3n+i}=A_{2n+i}+\tau_{n+i}+\sigma_i$ ($i\le n+2$), $\tau=\Psi_2$-, $\sigma=\Psi_3$-
+  coefficients, $\tau_i=-\frac12\sum_{l<i}[t^l]\Phi^2$. Corollaries: $c^{(n)}_{2n+1}=A_{n+1}-\frac12$,
+  $c^{(n)}_{2n+2}=A_{n+2}$, ridge $\to\frac12$, and the round-1 extremal
+  $\frac{2663}{4480}$ at $(6,13)$ **explained** ($=|A_7-\frac12|$). *Proved* + exact check
+  (3960 cells, 0 failures, `rippon/bands.py`).
+- **Theorem 5 (analytic profile).** (a) radius of convergence $R\ge\ln2$; (b)
+  $-1<\Phi(t)<0$ on the real segment $(0,1)$ — the profile bound holds there; (c)
+  **certified** (arb balls + proved tail bound, `rippon/phi_cert.py`):
+  $\Phi(-\frac12)<-1.159<-1$, so $\max_{|t|=r}|\Phi|\ge1.159$ for all $r\in[\frac12,R)$ —
+  **sup-norm/Cauchy routes provably cannot prove $|A_j|\le1$**, even in the $r\uparrow R$ limit.
+- **Profile data (exact, 600 terms).** $|A_j|\le1$ for $j\le600$; $\max_{j\ge1}|A_j|=\frac12$
+  only at $j=1$; envelope decay $\sim j^{-0.88}$, $|A_j|^{1/j}\to0.99$ ($R=1$ conjectured);
+  $\Phi$ empirically **not P-recursive** (no recurrence, order $\le8$); radial limits at
+  root-of-unity directions $\to0$ (parabolic boundary zeros; natural-boundary picture);
+  $\Phi(t)\sim2(t-1)$ at $t=1^-$; $|\tau_i|\le\frac12$, $|\sigma_i|\le\frac13$ ($i\le600$);
+  $L^1$ circle means of $|\Phi|$ are $>1$ (H^1 route obstructed too, by only ~13%).
+- **Lean 4 (round 2).** `lean/Rippon2.lean` machine-checks (`native_decide`): factorization
+  window ($n\le30$, deg $\le60$), band-2 identity ($n\le20$), corollaries ($n\le25$).
+
+## Round-1 results (see `proofs/proofs.md`)
 
 - **Lemma A (leading coefficient).** $c^{(n)}_n=-1$ for all $n$ — the *constant* $-1$.
   This **corrects** a prior working note that guessed $(-1)^n$ (already refuted by the

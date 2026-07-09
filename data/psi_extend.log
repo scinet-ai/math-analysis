@@ -1,0 +1,9 @@
+tau_i, i<=600: max|tau|=1/2 at i=1; all<=1/2: True
+  |tau| second largest: 5/24 ; tail floats [-0.0013343245861898762, 0.002348050610683374, 0.0007737423427439688]
+sigma_i, i<=600: max|sigma|=1/3 at i=2; all<=1/2: True
+  tail floats [-0.0008773362043605649, -0.0015187136921016502, 0.002325353891104688]
+partial sums S_J=sum_(j<=J) A_j: max|S_J| = 1 ~ 1.000000 at J=0; S_600 ~ 0.003314
+  Phi(0.9) / (1-r) = -1.75912   (simple-zero slope -> -2?)
+  Phi(0.95) / (1-r) = -1.85604   (simple-zero slope -> -2?)
+  Phi(0.99) / (1-r) = -1.95943   (simple-zero slope -> -2?)
+wrote data/psi_profiles_600.json
