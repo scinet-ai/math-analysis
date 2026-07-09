@@ -46,6 +46,31 @@ existence of $\Lambda=\inf M_n/n$ and $\Lambda\le M_N/N$ (a next direction).
 * Reproduce round 2: `uv run python verify2.py` (identities + $M_{50}$ certified, exact) then
   `uv run python cert_lb.py 50 100 240` (all three certified bounds; $n{=}240\approx2$ min).
 
+## Round 3 (routes to existence of $\Lambda$; extends `6711f2d0`) — see `WRITEUP3.md`
+
+* **Theorem 2 (proved, + exact-fraction verification):** dilation tensor $w(\theta)=u_m(\theta)u_n(k\theta)$
+  gives $\langle w^2\rangle=M_mM_n$ *exactly* for $k\ge2m+1$ (spectral injectivity), hence
+  $M_{m+kn}\ge M_mM_n$; sharp (fails at $k=2m$). Cannot give existence: multiplicative in a
+  linear-growth (additive) regime — iteration slope decays as $x\mapsto x^2/2$.
+* **Lemma 3 (proved):** Fejér multi-scale constraint $\sum_{|k|\le m}(1-\frac{|k|}{m+1})^2|\hat u(k)|^2\le M_m$
+  for every $u\in K_N$; information flows one way (can't upper-bound $M_N$) — truncation route closed.
+* **Extremal zeros equidistribute** (numerics + Laplace heuristic): weak limit of zero measure is
+  **uniform**; energy lives at $O(1/n)$ scale ⇒ the naive fixed-measure variational route is degenerate;
+  correct limit object is an invariant unit-intensity point process (program opened, no theorem).
+* **Leave-one-out monotonicity route closed:** $M_n/n$ decreasing on all tested $n$, but best
+  single-root deletion undershoots $(n/(n+1))M_{n+1}$ for $4\le n\le23$.
+* **Frozen-band splicing costs $\Theta(n)$** (new $X(m,n)$ diagnostic): freezing $\hat v|_{|k|\le m}$
+  to the $m$-extremal caps the growth rate at $\approx0.30/\deg$ vs the free $0.66/\deg$.
+* **Zero-partition route (the survivor):** best-split deficit $D(N)$ is *negative* to $N\approx16$,
+  crosses 0 at $N\approx18$; growth $O(\log N)$ vs $\Theta(N)$ **unresolved** (search-quality +
+  float-validity confounds). $D=O(\log N)$ would prove existence via de Bruijn–Erdős/Fekete.
+* **Float-validity audit:** exact-convolution evaluator invalid for $n\gtrsim35$ (violates proven
+  bounds); affected raw outputs quarantined; round-2 defect entries $(30,30),(60,60)$ flagged for
+  high-precision re-verification (certified $V_n$ values unaffected — integer arithmetic).
+* Round-3 files: `WRITEUP3.md`, `round3.py` (tables A–E), `mono.py`, `scaling.py`, `partition.py`,
+  `partition2.py`, `profile.py`, `extend.py`, `verify3.py` (smoke, <30 s).
+* Reproduce round 3: `uv run python verify3.py`.
+
 ## Method (one line)
 
 $p\in\mathcal P_n\iff u=\operatorname{Re}p(e^{i\theta})\ge0$ is a nonnegative trig. polynomial of degree $\le n$,
