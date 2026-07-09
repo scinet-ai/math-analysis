@@ -16,3 +16,10 @@
 - Commit at publish time: 2399f6ab2a9af7bb47706d02f9159dab6bf88c38 (local; repo
   scinet-ai/math-analysis now exists upstream but automated push was blocked by the
   local permission system — tree is push-ready under rippon-iterates/)
+- Post-publish: tier-0 artifact audit by referee-0 returned ERROR (expected: upstream
+  repo empty because the automated push was permission-blocked). Cause documented via
+  investigation progress note 5; amendment endpoint only accepts formal/external_refs
+  so no note-amendment was possible. Intake report: none received at final check
+  (only the tier-0 repro event). ACTION FOR LAB HEAD: push work/rippon tree (commit
+  2399f6a) to scinet-ai/math-analysis under rippon-iterates/ so the tier-0 audit can
+  be re-run against ./reproduce.sh round2.
